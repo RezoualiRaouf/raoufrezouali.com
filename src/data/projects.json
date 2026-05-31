@@ -1,130 +1,66 @@
 {
   "projects": [
     {
-      "name": "TT4D",
-      "description": "Generate winning combinations, view past results, and analyze lottery trends all in one place",
-      "image": "/img/tt4d.png",
+      "name": "Multithreaded HTTP/1.1 Server",
+      "description": "A lightweight HTTP server written in pure C with POSIX threads for concurrent connection handling. Features Apache Common Log Format logging, path traversal protection, keep-alive connections, and graceful error responses.",
+      "image": "/img/http-server.png",
       "tags": [
-        "Python",
-        "FastAPI",
-        "Docker",
-        "Fly.io",
-        "NextJS",
-        "PostgreSQL",
-        "TailwindCSS",
-        "BS4"
-      ],
-      "links": [
-        {
-          "name": "Website",
-          "href": "https://huatnumbers.com",
-          "icon": "globe"
-        },
-        {
-          "name": "Source",
-          "href": "https://github.com/tedawf/tt4d",
-          "icon": "github"
-        },
-        {
-          "name": "Source (UI)",
-          "href": "https://github.com/tedawf/tt4d-web",
-          "icon": "github"
-        }
-      ]
-    },
-    {
-      "name": "Tradingview Telegram Alerts",
-      "description": "Real-time trading alerts with chart snapshots sent to Telegram, designed to keep traders informed and responsive to market changes",
-      "image": "/img/tv-tele-alerts.png",
-      "tags": [
-        "Python",
-        "FastAPI",
-        "Docker",
-        "Fly.io",
-        "Selenium",
-        "Telegram Bot API"
+        "C",
+        "POSIX Threads",
+        "HTTP/1.1",
+        "Network Programming",
+        "Linux"
       ],
       "links": [
         {
           "name": "Source",
-          "href": "https://github.com/tedawf/tradingview-telegram-alerts",
+          "href": "https://github.com/RezoualiRaouf/multithreaded-http-server",
           "icon": "github"
         }
       ]
     },
     {
-      "name": "NFTVue",
-      "description": "Non-Fungible Tokens (NFTs) Gallery Viewer website that allows users to connect their crypto wallets to view and verify their tokens",
-      "href": "https://nftvue.vercel.app",
-      "image": "/img/nftvue.png",
+      "name": "Al-Moanes",
+      "description": "An Islamic Quran recitation web app with Arabic/English RTL/LTR support, custom audio player, sidebar navigation, smooth scroll, and newsletter subscription via Google Apps Script.",
+      "image": "/img/al-moanes.png",
       "tags": [
-        "NextJS",
-        "TailwindCSS",
-        "MetaMask",
-        "WalletConnect",
-        "Web3",
-        "NFTScan",
-        "HashKey DID"
+        "HTML5",
+        "SCSS",
+        "Tailwind CSS",
+        "JavaScript",
+        "RESTful API",
+        "Netlify"
       ],
       "links": [
         {
           "name": "Website",
-          "href": "https://nftvue.vercel.app",
-          "icon": "globe"
-        }
-      ]
-    },
-    {
-      "name": "Portfolio 2023 (Outdated)",
-      "description": "Simple markdown portfolio made with Astro 🚀",
-      "href": "https://tedawf-dot-com.netlify.app",
-      "image": "/img/old-portfolio.png",
-      "tags": ["Astro", "TailwindCSS", "Netlify", "SEO"],
-      "links": [
-        {
-          "name": "Website",
-          "href": "https://tedawf-dot-com.netlify.app",
+          "href": "https://al-moanes.netlify.app",
           "icon": "globe"
         },
         {
           "name": "Source",
-          "href": "https://github.com/tedawf/portfolio-2023",
+          "href": "https://github.com/RezoualiRaouf/al-moanes",
           "icon": "github"
         }
       ]
     },
     {
-      "name": "Rapid Ride Fight (Final Year)",
-      "description": "3D capture-the-flag, multiplayer boat fighting, with smart AI and water graphics",
-      "href": "https://games.digipen.edu/games/rapid-ride-fight",
-      "image": "/img/rrf.png",
-      "tags": ["C/C++", "OpenGL", "Custom Game Engine", "3D"],
+      "name": "University Management System",
+      "description": "A full-stack admin web application with a NoSQL database backend for managing university operations. Built as a final year project, graded 18.75/20 — top 10% of class.",
+      "image": "/img/ums.png",
+      "tags": [
+        "Web",
+        "NoSQL",
+        "Admin Dashboard"
+      ],
       "links": [
         {
-          "name": "Gameplay",
-          "href": "https://www.youtube.com/watch?v=bge3fiypg5U",
-          "icon": "youtube"
-        },
-        {
-          "name": "Trailer",
-          "href": "https://www.youtube.com/watch?v=PNAO-aI1Daw",
-          "icon": "youtube"
-        }
-      ]
-    },
-    {
-      "name": "Glowing Under (2nd Year)",
-      "description": "2D platformer with a focus on puzzle-solving, no-death exploration and storytelling",
-      "href": "https://games.digipen.edu/games/glowing-under",
-      "image": "/img/gu.png",
-      "tags": ["C/C++", "OpenGL", "Custom Game Engine", "2D"],
-      "links": [
-        {
-          "name": "Trailer",
-          "href": "https://www.youtube.com/watch?v=u6RYwBZlSfg",
-          "icon": "youtube"
+          "name": "Source",
+          "href": "https://github.com/RezoualiRaouf/university-management-system",
+          "icon": "github"
         }
       ]
     }
+
   ]
 }

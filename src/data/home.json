@@ -1,16 +1,16 @@
 {
   "introduction": {
-    "greeting": "hi ted here. 👋",
-    "description": "Backend by profession, full-stack by passion. I build and self-host the lot.",
-    "chatPrompt": "For Q&A, start a chat with Ted Support",
+    "greeting": "hi, I'm Raouf. 👋",
+    "description": "Network & infrastructure enthusiast building systems from the ground up. I love digging into how things connect, securing what matters, and writing the tools in between.",
+    "chatPrompt": "Scroll down to see what I've been working on",
     "escalation": {
-      "text": "For any escalations, please find my",
-      "linkText": "Ted Lead",
-      "suffix": "instead."
+      "text": "Or reach me directly at",
+      "linkText": "contact@raoufrezouali.com",
+      "suffix": ""
     }
   },
   "escalationLink": {
-    "href": "https://www.instagram.com/gomugomu.cat",
-    "title": "meow"
+    "href": "mailto:contact@raoufrezouali.com",
+    "title": "Send me an email"
   }
 }

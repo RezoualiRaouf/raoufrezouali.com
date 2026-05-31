@@ -1,49 +1,25 @@
 {
   "education": [
     {
-      "name": "Digipen Institute of Technology Singapore",
-      "href": "https://www.digipen.edu.sg",
-      "logo": "/img/digipen.png",
+      "name": "University of Bouira",
+      "href": "https://www.univ-bouira.dz",
+      "logo": "/img/uamo.png",
       "positions": [
         {
-          "title": "BS in Computer Science in Real-Time Interactive Simulation",
-          "start": "Sep 2019",
-          "end": "Apr 2023",
+          "title": "M.Sc. in Information Systems and Software Engineering",
+          "start": "Sep 2025",
           "description": [
-            "Graduated with a Minor in Mathematics",
-            "President of Digipen Student Management Committee for freshman year",
-            "3-time recipient of the Dean's Honor List"
-          ],
-          "links": [
-            {
-              "name": "Final Year Project",
-              "href": "https://games.digipen.edu/games/rapid-ride-fight",
-              "icon": "globe"
-            },
-            {
-              "name": "2nd Year Project",
-              "href": "https://games.digipen.edu/games/glowing-under",
-              "icon": "globe"
-            }
+            "Expected graduation: 2027.",
+            "Current coursework: Operating Systems, Distributed Architectures, Advanced Algorithms."
           ]
-        }
-      ]
-    },
-    {
-      "name": "Singapore Polytechnic",
-      "href": "https://www.sp.edu.sg",
-      "logo": "/img/sp.png",
-      "positions": [
+        },
         {
-          "title": "Diploma in Games Design and Development",
-          "start": "Apr 2014",
-          "end": "May 2017",
-          "links": [
-            {
-              "name": "Final Year Project",
-              "href": "https://tedawf.github.io/portfolio-2019/phase.html",
-              "icon": "globe"
-            }
+          "title": "Bachelor of Science in Computer Science",
+          "start": "Sep 2021",
+          "end": "Jun 2025",
+          "description": [
+            "Graduated with 18.75/20 — Top 10% of class.",
+            "Final project: University Management System with an admin web interface and NoSQL database."
           ]
         }
       ]
