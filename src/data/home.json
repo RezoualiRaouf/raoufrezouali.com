@@ -1,12 +1,15 @@
 {
   "introduction": {
-    "greeting": "hi, I'm Raouf. 👋",
-    "description": "Network & infrastructure enthusiast building systems from the ground up. I love digging into how things connect, securing what matters, and writing the tools in between.",
-    "chatPrompt": "Scroll down to see what I've been working on",
+    "greeting": "hi, I'm Raouf. ",
+    "description":   "I build, maintain, and troubleshoot the foundational systems that keep clintes applications & servercies running. With a strong networking fundamentals, server administration, and hands-on experience in Linux environments.",
     "escalation": {
       "text": "Or reach me directly at",
       "linkText": "contact@raoufrezouali.com",
       "suffix": ""
+    },
+    "currentRole": {
+      "position": "Network & Infrastructure Intern",
+      "company": "Hope Technology"
     }
   },
   "escalationLink": {

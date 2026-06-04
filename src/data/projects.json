@@ -2,8 +2,8 @@
   "projects": [
     {
       "name": "Multithreaded HTTP/1.1 Server",
-      "description": "A lightweight HTTP server written in pure C with POSIX threads for concurrent connection handling. Features Apache Common Log Format logging, path traversal protection, keep-alive connections, and graceful error responses.",
-      "image": "/img/http-server.png",
+      "description": "A lightweight HTTP server written in pure C with POSIX threads for concurrent connection handling. Features Apache Common Log Format logging, path traversal protection, keep-alive connections.",
+      "image": "/img/server.png",
       "tags": [
         "C",
         "POSIX Threads",
@@ -14,21 +14,20 @@
       "links": [
         {
           "name": "Source",
-          "href": "https://github.com/RezoualiRaouf/multithreaded-http-server",
+          "href": "https://github.com/RezoualiRaouf/http-server-in-c",
           "icon": "github"
         }
       ]
     },
     {
       "name": "Al-Moanes",
-      "description": "An Islamic Quran recitation web app with Arabic/English RTL/LTR support, custom audio player, sidebar navigation, smooth scroll, and newsletter subscription via Google Apps Script.",
-      "image": "/img/al-moanes.png",
+      "description": "An Islamic Quran recitation web app with Arabic/English RTL/LTR support, custom audio player, and newsletter via Google Apps Script.",
+      "image": "/img/Al-Moanes.png",
       "tags": [
         "HTML5",
         "SCSS",
         "Tailwind CSS",
         "JavaScript",
-        "RESTful API",
         "Netlify"
       ],
       "links": [
@@ -43,24 +42,6 @@
           "icon": "github"
         }
       ]
-    },
-    {
-      "name": "University Management System",
-      "description": "A full-stack admin web application with a NoSQL database backend for managing university operations. Built as a final year project, graded 18.75/20 — top 10% of class.",
-      "image": "/img/ums.png",
-      "tags": [
-        "Web",
-        "NoSQL",
-        "Admin Dashboard"
-      ],
-      "links": [
-        {
-          "name": "Source",
-          "href": "https://github.com/RezoualiRaouf/university-management-system",
-          "icon": "github"
-        }
-      ]
     }
-
   ]
 }

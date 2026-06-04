@@ -33,16 +33,8 @@
     {
       "path": "/resume.pdf",
       "name": "resume",
-      "description": "Ted's resume CV in pdf format",
+      "description": "Raouf's resume CV in pdf format",
       "showInNav": false
-    }
-  ],
-  "externalLinks": [
-    {
-      "path": "https://www.instagram.com/gomugomu.cat",
-      "name": "instagram",
-      "description": "Ted Lead for escalations (joke reference to cat's account)",
-      "isExternal": true
     }
   ]
 }

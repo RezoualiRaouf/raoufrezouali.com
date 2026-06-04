@@ -10,6 +10,7 @@ import { getPosts } from "@/lib/posts";
 import {
   ArrowRightIcon,
   FileDown,
+  MapPin,
 } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -39,9 +40,11 @@ export default function Home() {
             {homeContent.introduction.greeting}
           </h1>
 
-          <p className="mt-2 whitespace-nowrap text-sm font-medium sm:text-base">
-            {currentAge}yo CS student & network enthusiast from Algeria 🇩🇿
-          </p>
+         <p className="mt-2 whitespace-nowrap text-sm font-medium sm:text-base">
+          {homeContent.introduction.currentRole.position}{" "} at{" "}
+            <span className="text-foreground"> {homeContent.introduction.currentRole.company}
+            </span>
+          </p> 
 
           <p className="mt-4 max-w-sm text-balance text-sm sm:text-base">
             {homeContent.introduction.description}
@@ -69,6 +72,9 @@ export default function Home() {
               </Button>
             </Link>
             <Socials />
+            <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
+              <MapPin className="size-4" />Algeria
+              </span>
           </section>
         </div>
       </section>
