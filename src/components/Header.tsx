@@ -1,5 +1,4 @@
 import Link from "next/link";
-import ChatToggle from "./ChatToggle";
 import ThemeToggle from "./ThemeToggle";
 
 import routesData from "@/data/routes.json";
@@ -27,7 +26,6 @@ export default function Header() {
             ))}
           </ul>
           <div className="flex gap-2 sm:gap-4">
-            <ChatToggle />
             <ThemeToggle />
           </div>
         </nav>
