@@ -3,6 +3,7 @@
 import { ThemeProvider, useTheme } from "next-themes";
 import React, { useEffect } from "react";
 import { Toaster } from "sonner";
+import Chat from "./Chat";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -14,6 +15,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     >
       <ThemeColorUpdater />
       {children}
+      <Chat />
       <ToastProvider />
     </ThemeProvider>
   );
@@ -21,6 +23,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
 function ToastProvider() {
   const { resolvedTheme } = useTheme();
+
   return (
     <Toaster
       className="mt-12"
@@ -32,11 +35,14 @@ function ToastProvider() {
 
 function ThemeColorUpdater() {
   const { resolvedTheme } = useTheme();
+
   useEffect(() => {
     const timerId = setTimeout(() => {
       const bodyStyles = window.getComputedStyle(document.body);
       const backgroundColor = bodyStyles.backgroundColor;
-      let metaThemeColor = document.querySelector<HTMLMetaElement>("meta[name='theme-color']");
+      let metaThemeColor = document.querySelector<HTMLMetaElement>(
+        "meta[name='theme-color']",
+      );
       if (metaThemeColor) {
         metaThemeColor.content = backgroundColor;
       } else {
@@ -48,5 +54,6 @@ function ThemeColorUpdater() {
     }, 0);
     return () => clearTimeout(timerId);
   }, [resolvedTheme]);
+
   return null;
 }

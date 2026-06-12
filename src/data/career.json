@@ -7,9 +7,9 @@
       "positions": [
         {
           "title": "Network Infrastructure Intern",
-          "start": "Jun 2025",
+          "start": "May 2026",
           "description": [
-            "Working on network infrastructure projects including IP addressing, VLAN configuration, DHCP/DNS management, and network device administration within a professional IT environment."
+            "Working on network infrastructure projects and studying for kaspersky certifications."
           ]
         }
       ]
@@ -20,21 +20,20 @@
       "logo": "/img/uamo.png",
       "positions": [
         {
-          "title": "Networks & Web Development Intern (Re-appointed)",
-          "start": "Dec 2025",
+          "title": "Networks & Virtualization (Re-appointed)",
+          "start": "Jan 2026",
+          "end": "May 2026",
           "description": [
             "Executed the migration of faculty computing systems by configuring and deploying secure Linux-based environments (Ubuntu).",
             "Collaborated with senior engineers using system administration tools such as Sophos, Webmin, phpMyAdmin, and PostgreSQL for server and database management."
           ]
         },
         {
-          "title": "Networks & Web Development Intern",
-          "start": "Feb 2025",
-          "end": "Jun 2025",
+          "title": "Software  Intern",
+          "start": "Jan 2025",
+          "end": "May 2025",
           "description": [
-            "Developed and deployed two WordPress-based applications for faculty libraries, including a custom PHP plugin to streamline staff authentication.",
-            "Maintained enterprise-level server infrastructure, including network cabling and hardware configuration.",
-            "Supported troubleshooting of servers and hardware components to verify system functionality and readiness."
+            "Developed and deployed two WordPress-based applications for faculty libraries, including a custom PHP plugin."
           ]
         }
       ]

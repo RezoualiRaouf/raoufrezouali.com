@@ -23,7 +23,6 @@ export function ProjectCard({ project }: Props) {
     <Card className="flex flex-col">
       <CardHeader>
         {image && (
-          <Link href={href || image}>
             <ImageWithSkeleton
               src={image}
               alt={name}
@@ -34,7 +33,6 @@ export function ProjectCard({ project }: Props) {
               containerClassName="h-40 w-full"
               className="h-40 w-full object-container p-2"
             />
-          </Link>
         )}
       </CardHeader>
       <CardContent className="flex flex-col gap-2">
