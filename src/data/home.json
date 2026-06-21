@@ -1,7 +1,7 @@
 {
   "introduction": {
     "greeting": "hi, I'm Raouf. ",
-    "description":   "I build, maintain, and troubleshoot the foundational systems that keep clintes applications & servercies running. With a strong networking fundamentals, server administration, and hands-on experience in Linux environments.",
+    "description": "I build, maintain, and troubleshoot the foundational systems that keep clients applications & servercies running. With a strong networking fundamentals, server administration, and hands-on experience in Linux environments.",
     "escalation": {
       "text": "Or reach me directly at",
       "linkText": "contact@raoufrezouali.com",
