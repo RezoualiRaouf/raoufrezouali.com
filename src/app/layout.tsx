@@ -4,8 +4,8 @@ import Providers from "@/components/Providers";
 import { cn } from "@/lib/utils";
 import type { Metadata, Viewport } from "next";
 import { Calistoga, Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
-import Script from 'next/script'
 
 const inter = Inter({
   subsets: ["latin"],
@@ -43,6 +43,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-TJV80YGZV0"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-TJV80YGZV0');
+          `}
+        </Script>
+      </head>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
@@ -60,26 +74,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
-
-export default function RootLayout({ children }) {
-  return (
-    <html>
-      <head>
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=G-TJV80YGZV0`}
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-TJV80YGZV0');
-          `}
-        </Script>
-      </head>
-      <body>{children}</body>
-    </html>
-  )
 }
