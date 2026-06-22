@@ -4,7 +4,7 @@ export async function GET(req) {
   console.log({ time: new Date(), ip, ua });
 
   return Response.redirect(
-    'https://raoufrezouali.com/?utm_source=business_card&utm_medium=qr_code&utm_campaign=2026',
+    'https://raoufrezouali.com/card?src=qr&utm_source=business_card&utm_medium=qr_code&utm_campaign=2026',
     302
   );
 }
