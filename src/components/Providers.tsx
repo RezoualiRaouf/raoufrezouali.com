@@ -3,20 +3,18 @@
 import { ThemeProvider, useTheme } from "next-themes";
 import React, { useEffect } from "react";
 import { Toaster } from "sonner";
-import Chat from "./Chat";
+import CustomCursor from "./CustomCursor";
+import SoundProvider from "./SoundProvider";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider
-      enableSystem
-      attribute="class"
-      defaultTheme="system"
-      disableTransitionOnChange
-    >
-      <ThemeColorUpdater />
-      {children}
-      <Chat />
-      <ToastProvider />
+    <ThemeProvider attribute="class" forcedTheme="light" disableTransitionOnChange>
+      <SoundProvider>
+        <ThemeColorUpdater />
+        {children}
+        <ToastProvider />
+        <CustomCursor />
+      </SoundProvider>
     </ThemeProvider>
   );
 }

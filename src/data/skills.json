@@ -1,0 +1,24 @@
+{
+  "groups": [
+    {
+      "name": "Systems",
+      "items": ["Linux (Arch, Ubuntu)", "Active Directory", "Bash scripting", "Docker (familiar)"]
+    },
+    {
+      "name": "Networks and security",
+      "items": ["TCP/IP", "OpenVPN", "Cabling and hardware", "Sophos", "Kaspersky (studying)"]
+    },
+    {
+      "name": "Servers and data",
+      "items": ["Webmin", "phpMyAdmin", "PostgreSQL"]
+    },
+    {
+      "name": "Development",
+      "items": ["C and POSIX threads", "HTML, SCSS, Tailwind", "WordPress and PHP", "Git, Postman, REST APIs"]
+    }
+  ],
+  "marquee": [
+    ["Linux", "Active Directory", "OpenVPN", "Bash", "PostgreSQL", "Sophos"],
+    ["Webmin", "Docker", "C", "TCP/IP", "WordPress", "Git"]
+  ]
+}

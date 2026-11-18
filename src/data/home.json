@@ -1,16 +1,24 @@
 {
+  "headline": {
+    "lines": [
+      "I keep",
+      "systems",
+      "running."
+    ]
+  },
   "introduction": {
     "greeting": "hi, I'm Raouf. ",
-    "description": "I build, maintain, and troubleshoot the foundational systems that keep clients applications & servercies running. With a strong networking fundamentals, server administration, and hands-on experience in Linux environments.",
+    "description": "I build, maintain, and troubleshoot the systems and networks that keep client applications and services running, backed by strong networking fundamentals, server administration, and hands-on experience in Linux environments.",
     "escalation": {
       "text": "Or reach me directly at",
       "linkText": "contact@raoufrezouali.com",
       "suffix": ""
     },
     "currentRole": {
-      "position": "Network & Infrastructure Intern",
+      "position": "Junior Systems & Network Administrator",
       "company": "Hope Technology"
-    }
+    },
+    "lead": "with strong networking fundamentals, server administration and hands-on Linux experience."
   },
   "escalationLink": {
     "href": "mailto:contact@raoufrezouali.com",

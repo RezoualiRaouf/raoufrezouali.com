@@ -1,0 +1,340 @@
+<!doctype html>
+<!--
+  Source of public/resume.pdf.
+  Edit this file, then run `npm run resume` to regenerate the PDF.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Rezouali_Raouf_CV</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 10pt;
+        line-height: 1.38;
+        color: #000;
+        background: #fff;
+        padding: 10mm 15mm 8mm;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 8pt;
+      }
+
+      header h1 {
+        font-size: 27pt;
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: 0.2pt;
+      }
+
+      header p {
+        font-size: 10.5pt;
+        margin-top: 3pt;
+      }
+
+      header a {
+        text-decoration: underline;
+      }
+
+      header .icon {
+        display: inline-block;
+        width: 11pt;
+        height: 11pt;
+        vertical-align: -1.5pt;
+        margin-right: 2pt;
+      }
+
+      section {
+        margin-top: 8pt;
+      }
+
+      h2 {
+        font-size: 12.5pt;
+        font-weight: 700;
+        text-transform: uppercase;
+        border-bottom: 0.8pt solid #000;
+        padding-bottom: 1pt;
+        margin-bottom: 4pt;
+      }
+
+      .entry {
+        margin-bottom: 6pt;
+      }
+
+      .entry:last-child {
+        margin-bottom: 0;
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12pt;
+      }
+
+      .row .right {
+        text-align: right;
+        white-space: nowrap;
+        font-weight: 700;
+      }
+
+      .row .right.plain {
+        font-weight: 400;
+      }
+
+      .sub {
+        font-size: 10.5pt;
+      }
+
+      ul {
+        margin: 2pt 0 0 14pt;
+      }
+
+      li {
+        margin-bottom: 1.5pt;
+        padding-left: 2pt;
+      }
+
+      .skills p {
+        margin-bottom: 3pt;
+      }
+
+      .group {
+        font-weight: 700;
+        margin-bottom: 2pt;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Rezouali Raouf</h1>
+      <p>
+        <a href="mailto:raoufrezouali7@gmail.com">raoufrezouali7@gmail.com</a>
+        | +213556953564 | Bouira, Algeria
+      </p>
+      <p>
+        <a href="https://linkedin.com/in/raoufrezouali/"
+          ><svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"
+            /></svg
+          >linkedin.com/in/raoufrezouali/</a
+        >
+        |
+        <a href="https://github.com/RezoualiRaouf"
+          ><svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.07 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3"
+            /></svg
+          >github.com/RezoualiRaouf</a
+        >
+      </p>
+    </header>
+
+    <section>
+      <h2>Education</h2>
+
+      <div class="entry">
+        <div class="row">
+          <div>
+            <strong>University of Bouira |</strong> M.Sc. in Information
+            Systems and Software Engineering
+          </div>
+          <div class="right">Bouira, Algeria</div>
+        </div>
+        <div class="row">
+          <div>Sep 2025 – Present</div>
+          <div class="right plain">Expected Graduation: 2027</div>
+        </div>
+        <ul>
+          <li>
+            <strong>Current coursework:</strong> Operating Systems, Distributed
+            Architectures, Advanced Algorithms.
+          </li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="row">
+          <div>
+            <strong>University of Bouira |</strong> Bachelor of Science in
+            Computer Science
+          </div>
+          <div class="right">Bouira, Algeria</div>
+        </div>
+        <div class="row">
+          <div></div>
+          <div class="right">June 2025</div>
+        </div>
+        <ul>
+          <li>
+            Developed a University Management System (Admin Web &amp; NoSQL
+            Database) with grade of 18.75/20 (Top 10% of Class)
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Professional Experience</h2>
+
+      <div class="entry">
+        <div class="row">
+          <div>
+            <strong>Hope Technology,</strong> Junior Systems &amp; Network
+            Administrator (Part-time)
+          </div>
+          <div class="right">Oct 2026 – Present</div>
+        </div>
+        <ul>
+          <li>Working with Active Directory and OpenVPN.</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="row">
+          <div>
+            <strong>Hope Technology,</strong> Infrastructure &amp; Networks
+            Intern
+          </div>
+          <div class="right">Jun 2026 – Sep 2026</div>
+        </div>
+        <ul>
+          <li>
+            Worked on network infrastructure projects and studied for
+            Kaspersky certifications.
+          </li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="row">
+          <div>
+            <strong>University of Bouira,</strong> Networks &amp;
+            Virtualization Intern (Re-appointed)
+          </div>
+          <div class="right">Jan 2026 – May 2026</div>
+        </div>
+        <ul>
+          <li>
+            Executed the migration of faculty computing systems by configuring
+            and deploying secure Linux-based environments (Ubuntu).
+          </li>
+          <li>
+            Collaborated with senior engineers using system administration
+            tools such as Sophos, Webmin, phpMyAdmin, and PostgreSQL for server
+            and database management.
+          </li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="row">
+          <div>
+            <strong>University of Bouira,</strong> Software Intern
+          </div>
+          <div class="right">Jan 2025 – May 2025</div>
+        </div>
+        <ul>
+          <li>
+            Developed and deployed two WordPress-based applications for faculty
+            libraries, including a custom PHP plugin to streamline staff
+            authentication.
+          </li>
+          <li>
+            Supported troubleshooting of servers and hardware components to
+            verify system functionality and readiness.
+          </li>
+          <li>
+            Maintained enterprise-level server infrastructure, including network
+            cabling and hardware configuration.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="skills">
+      <h2>Skills</h2>
+      <p>
+        <strong>Programming Languages:</strong> C (Network Programming, System
+        Programming), JavaScript (ES6+), Bash Scripting.
+      </p>
+      <p>
+        <strong>Web Development:</strong> HTML5/CSS3/SCSS, Tailwind CSS,
+        WordPress, RESTful API Integration.
+      </p>
+      <p>
+        <strong>Systems &amp; Networking:</strong> Linux Administration (Arch,
+        Ubuntu), Active Directory, OpenVPN, HTTP Server Implementation, Network
+        Protocols (TCP/IP), POSIX Threads, Server Configuration &amp;
+        Troubleshooting.
+      </p>
+      <p>
+        <strong>Tools &amp; DevOps:</strong> Git/GitHub (version control),
+        Postman, Webmin, FileZilla (FTP), Docker (familiar).
+      </p>
+    </section>
+
+    <section>
+      <h2>Projects</h2>
+      <p class="group">Web Development &amp; Network Programming</p>
+
+      <div class="entry">
+        <div class="row">
+          <div class="sub">Multithreaded HTTP/1.1 Server (C, POSIX)</div>
+          <div class="right">Nov 2025</div>
+        </div>
+        <ul>
+          <li>
+            A lightweight HTTP server written in pure C with POSIX threads for
+            concurrent connection handling.
+          </li>
+          <li>
+            Features Apache Common Log Format logging, path traversal
+            protection, and keep-alive connections.
+          </li>
+          <li>
+            Implements request timeout handling (5 seconds) and graceful error
+            responses with proper HTTP status codes, tested in Postman.
+          </li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="row">
+          <div class="sub">Al-Moanes – Quran Recitation Web App</div>
+          <div class="right">Jan 2026</div>
+        </div>
+        <ul>
+          <li>
+            Developed a responsive user interface using HTML5, SCSS, and
+            Tailwind CSS, ensuring a seamless and accessible experience across
+            mobile and desktop devices.
+          </li>
+          <li>
+            Integrated external RESTful APIs to dynamically load Quranic verses
+            and audio recitations.
+          </li>
+        </ul>
+      </div>
+    </section>
+  </body>
+</html>

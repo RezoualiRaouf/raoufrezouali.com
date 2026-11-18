@@ -30,9 +30,9 @@ export default async function CardPage({ searchParams }: Props) {
       <div className="flex flex-col items-center gap-4 text-center">
         
         <div className="space-y-1">
-          <h1 className="font-serif text-3xl tracking-wide">Raouf Rezouali</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Raouf Rezouali</h1>
           <p className="text-sm font-medium text-muted-foreground">
-            Network Infrastructure Engineer
+            Junior Systems &amp; Network Administrator
           </p>
 
         </div>

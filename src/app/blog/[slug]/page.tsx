@@ -26,12 +26,12 @@ export async function generateStaticParams() {
   return slugs;
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const { slug } = params;
+type PostPageProps = {
+  params: Promise<{ slug: string }>;
+};
+
+export async function generateMetadata({ params }: PostPageProps) {
+  const { slug } = await params;
   const post = await getPostBySlug(slug);
 
   if (!post) {
@@ -51,8 +51,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function Post({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+export default async function Post({ params }: PostPageProps) {
+  const { slug } = await params;
   const post = await getPostBySlug(slug);
 
   if (!post) {

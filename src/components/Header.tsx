@@ -1,35 +1,26 @@
-import Link from "next/link";
-import ThemeToggle from "./ThemeToggle";
+import NavBar, { type NavLink } from "./NavBar";
 
 import routesData from "@/data/routes.json";
+import { getPosts } from "@/lib/posts";
 
-const navLinks = routesData.routes
-  .filter((route) => route.showInNav)
-  .map((route) => ({
-    name: route.name,
-    href: route.path,
-    title: route.description,
-  }));
+export default async function Header() {
+  // The blog link stays hidden until at least one post is published.
+  const hasPosts = (await getPosts()).some((post) => !post.draft);
 
-export default function Header() {
-  return (
-    <header className="sticky top-0 z-50 bg-background/75 backdrop-blur-sm">
-      <div className="mx-auto max-w-3xl px-8 py-6">
-        <nav className="flex items-center justify-between">
-          <ul className="flex gap-4 sm:gap-8">
-            {navLinks.map((nav, id) => (
-              <li key={id} className="link">
-                <Link href={nav.href} title={nav.title}>
-                  {nav.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="flex gap-2 sm:gap-4">
-            <ThemeToggle />
-          </div>
-        </nav>
-      </div>
-    </header>
-  );
+  // Two sections of the home page, then the pages from routes.json.
+  // Contact has its own button in the bar, so it is not repeated here.
+  const links: NavLink[] = [
+    { name: "About", href: "/#about" },
+    { name: "Experience", href: "/#experience" },
+    ...routesData.routes
+      .filter((route) => route.showInNav && route.path !== "/" && route.path !== "/contact")
+      .filter((route) => route.path !== "/blog" || hasPosts)
+      .map((route) => ({
+        name: route.name.charAt(0).toUpperCase() + route.name.slice(1),
+        href: route.path,
+        title: route.description,
+      })),
+  ];
+
+  return <NavBar links={links} />;
 }

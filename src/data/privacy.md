@@ -1,24 +1,28 @@
-_Last Updated: May 2026_
+_Last Updated: November 2026_
 
 ## TL;DR
 
-This site doesn't track you. If you use the contact form, your message is only used to reply to you.
+This site uses Google Analytics to count visits. If you use the contact form, your message is only used to reply to you. Nothing is sold.
 
 ## Hey 👋
 
-Thanks for stopping by. This is my personal portfolio and blog where I share my work, projects, and thoughts. Here's a simple, no-nonsense explanation of how things work.
+Thanks for stopping by. This is my personal portfolio where I share my work, projects, and thoughts. Here's a simple, no-nonsense explanation of how things work.
 
 ## What I collect (and why)
 
-This site is mostly static. There are no accounts, no ads, and no tracking cookies.
+There are no accounts and no ads.
+
+### Analytics
+
+This site uses Google Analytics 4 to see how many people visit and which pages they read. Google Analytics sets cookies and collects data such as the pages you view, your approximate location, and your device and browser type. Google processes this data under its [privacy policy](https://policies.google.com/privacy). You can opt out with a content blocker or the [Google Analytics opt-out add-on](https://tools.google.com/dlpage/gaoptout).
+
+### Business card QR code
+
+If you scan the QR code on my business card, the redirect logs the time, your IP address, and your browser's user agent. I only use this to count scans.
 
 ### Contacting me
 
 If you use the contact form or email me directly, I'll only use your email to reply and continue the conversation. Nothing is shared or sold.
-
-### Blog view counts
-
-Blog posts track view counts so I know which content is useful. No personal data is attached to these counts.
 
 ## How I use the info
 

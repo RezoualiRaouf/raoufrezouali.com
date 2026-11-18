@@ -1,9 +1,11 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Providers from "@/components/Providers";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import type { Metadata, Viewport } from "next";
-import { Calistoga, Inter } from "next/font/google";
+import ScrollProgress from "@/components/ScrollProgress";
+import { Inter, Instrument_Serif } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
@@ -12,15 +14,35 @@ const inter = Inter({
   variable: "--font-sans",
   weight: ["400", "500", "600", "700"],
 });
-const calistoga = Calistoga({
+// Italic serif for the accent words in headlines.
+const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   variable: "--font-serif",
   weight: ["400"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
-  title: "Raouf Rezouali",
-  description: "Network & infrastructure enthusiast. Building systems, securing networks, and shipping open source tools.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  alternates: { canonical: "./" },
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+  },
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
@@ -61,13 +83,14 @@ export default function RootLayout({
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
           inter.variable,
-          calistoga.variable,
+          instrumentSerif.variable,
         )}
       >
         <Providers>
+          <ScrollProgress />
           <Header />
-          <div className="mx-auto flex max-w-3xl flex-col px-8">
-            <main className="grow">{children}</main>
+          <div className="mx-auto flex max-w-5xl flex-col px-6 sm:px-10">
+            <main className="grow pt-20">{children}</main>
           </div>
           <Footer />
         </Providers>

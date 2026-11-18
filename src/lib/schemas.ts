@@ -5,12 +5,16 @@ export const ContactFormSchema = z.object({
   name: z
     .string()
     .min(1, { message: "Name is required." })
-    .min(2, { message: "Must be at least 2 characters." }),
+    .min(2, { message: "Must be at least 2 characters." })
+    .max(100, { message: "Must be at most 100 characters." }),
   email: z
     .string()
     .min(1, { message: "Email is required." })
     .email("Invalid email."),
-  message: z.string().min(1, { message: "Message is required." }),
+  message: z
+    .string()
+    .min(1, { message: "Message is required." })
+    .max(5000, { message: "Must be at most 5000 characters." }),
 });
 
 const iconLink = z.object({
@@ -51,3 +55,8 @@ export type Experience = z.infer<typeof experience>;
 export const careerSchema = z.object({ career: z.array(experience) });
 export const educationSchema = z.object({ education: z.array(experience) });
 export const socialSchema = z.object({ socials: z.array(iconLink) });
+
+export const skillsSchema = z.object({
+  groups: z.array(z.object({ name: z.string(), items: z.array(z.string()) })),
+  marquee: z.array(z.array(z.string())),
+});

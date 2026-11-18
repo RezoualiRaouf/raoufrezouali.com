@@ -6,10 +6,18 @@
       "logo": "/img/hopeTech.jpg",
       "positions": [
         {
-          "title": "Network Infrastructure Intern",
-          "start": "May 2026",
+          "title": "Junior Systems & Network Administrator (Part-time)",
+          "start": "Oct 2026",
           "description": [
-            "Working on network infrastructure projects and studying for kaspersky certifications."
+            "With strong networking fundamentals, server administration and hands-on Linux experience."
+          ]
+        },
+        {
+          "title": "Infrastructure & Networks Intern",
+          "start": "Jun 2026",
+          "end": "Sep 2026",
+          "description": [
+            "Worked on network infrastructure projects and studied for Kaspersky certifications."
           ]
         }
       ]
@@ -29,7 +37,7 @@
           ]
         },
         {
-          "title": "Software  Intern",
+          "title": "Software Intern",
           "start": "Jan 2025",
           "end": "May 2025",
           "description": [

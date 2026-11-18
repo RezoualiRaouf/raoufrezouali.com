@@ -52,12 +52,14 @@ const SwipeCards = ({ className }: SwipeCardsProps) => {
 const Card = ({
   id,
   url,
+  alt,
   setCards,
   cards,
   depth,
 }: {
   id: number;
   url: string;
+  alt: string;
   setCards: Dispatch<SetStateAction<Card[]>>;
   cards: Card[];
   depth: number;
@@ -90,6 +92,7 @@ const Card = ({
 
   return (
     <motion.div
+      data-cursor="Drag"
       className="absolute h-[233px] w-[175px] origin-bottom overflow-hidden rounded-lg bg-white hover:cursor-grab active:cursor-grabbing"
       style={{
         gridRow: 1,
@@ -117,7 +120,7 @@ const Card = ({
       {isFront ? (
         <ImageWithSkeleton
           src={url}
-          alt="Photo of Ted"
+          alt={alt}
           width={175}
           height={233}
           sizes="175px"
@@ -152,19 +155,23 @@ export default SwipeCards;
 type Card = {
   id: number;
   url: string;
+  alt: string;
 };
 
 const cardData: Card[] = [
   {
     id: 1,
     url: "/img/egypt-pyramid.jpg",
+    alt: "Raouf in front of a pyramid at Giza, Egypt",
   },
   {
     id: 2,
     url: "/img/egypt-masjid.jpg",
+    alt: "Raouf in front of a mosque in Egypt",
   },
   {
     id: 3,
     url: "/img/dentex-2026.jpg",
+    alt: "Raouf at the DENTEX 2026 exhibition",
   }
 ];
