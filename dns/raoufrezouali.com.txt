@@ -1,0 +1,41 @@
+; Octenium generated DNS zone
+; Zone file for raoufrezouali.com
+$TTL 14400
+raoufrezouali.com.	86400	IN	SOA	ns1.octenium.net.	srv-notifications.octenium.com.	(
+						2026111904 ;Serial Number
+						3600 ;refresh
+						1800 ;retry
+						1209600 ;expire
+						86400	)
+raoufrezouali.com.	86400	IN	NS	ns1.octenium.net.
+raoufrezouali.com.	86400	IN	NS	ns2.octenium.net.
+raoufrezouali.com.	86400	IN	NS	ns3.octenium.net.
+raoufrezouali.com.	86400	IN	NS	ns4.octenium.net.
+raoufrezouali.com.	14400	IN	A	75.2.60.5
+raoufrezouali.com.	14400	IN	MX	0	mail.raoufrezouali.com.
+www	14400	IN	CNAME	raoufrezouali.com.
+ftp	14400	IN	A	178.32.105.28
+raoufrezouali.com.	14400	IN	TXT	"v=spf1 +mx +ip4:178.32.105.28 +ip4:57.128.97.32 +ip4:57.128.97.90 ~all"
+_dmarc	14400	IN	TXT	"v=DMARC1\; p=none\;"
+default._domainkey	14400	IN	TXT	"v=DKIM1\; k=rsa\; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlBcRAt9F26+fxPHgTRWl1/P0spwR+3rfbragdnboBBh2VmOiSMcPH63PGkTv71WiUMvPNgQyMCWiQNgpU1CUXo5G6X1gBaYbAax70q/o18CUyaH2uwYqoA6hOlAEd7e0Wbpo+j2lowkL36DQhuuVzz9VhKot5QCpcEe3SETFKubJEl0Jztlj1VUQ5CK2BFc+R" "DPO9Cr6hJs/Jh/PVOKcGEAf6aQoBDhmlcasIu9o2k8C1y/x7FfO4/c6/GbkB16u11dLyxODvF9lqEF3Jvsc5mKmQgT9PMcUIIzneG5Opr3zJDvbarkcZVWrG5vZwimuyU1ghhPxABjK9leviw1XJQIDAQAB\;"
+_cpanel-dcv-test-record	14400	IN	TXT	"_cpanel-dcv-test-record=MsMWIYhIV3xGzkQEnRhzHZaIur8KBLn2jJ53dJ31B4r0qKal68FEoBkru1Tp7NC7"
+_acme-challenge	14400	IN	TXT	"zQOINN5ARP3jc0TCUqyNmc3ejoVvhg3EDuby8BespeA"
+_carddav._tcp	14400	IN	SRV	0	0	2079	raoufrezouali.com.
+_carddav._tcp	14400	IN	TXT	"path=/"
+autoconfig	14400	IN	A	178.32.105.28
+_caldavs._tcp	14400	IN	SRV	0	0	2080	raoufrezouali.com.
+_caldavs._tcp	14400	IN	TXT	"path=/"
+cpcalendars	14400	IN	A	178.32.105.28
+_carddavs._tcp	14400	IN	SRV	0	0	2080	raoufrezouali.com.
+_carddavs._tcp	14400	IN	TXT	"path=/"
+cpanel	14400	IN	A	178.32.105.28
+_autodiscover._tcp	14400	IN	SRV	0	0	443	cpanelemaildiscovery.cpanel.net.
+cpcontacts	14400	IN	A	178.32.105.28
+autodiscover	14400	IN	A	178.32.105.28
+webdisk	14400	IN	A	178.32.105.28
+whm	14400	IN	A	178.32.105.28
+_caldav._tcp	14400	IN	SRV	0	0	2079	raoufrezouali.com.
+_caldav._tcp	14400	IN	TXT	"path=/"
+webmail	14400	IN	A	178.32.105.28
+mail	14400	IN	A	178.32.105.28
+
