@@ -2,6 +2,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import type { Metadata } from "next";
 import ReactMarkdown from "react-markdown";
+import RevealText from "@/components/RevealText";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -18,8 +19,14 @@ export default async function PrivacyPage() {
   const privacyContent = await getPrivacyContent();
   
   return (
-    <article className="mt-8 flex flex-col gap-8 pb-16">
-      <h1 className="title">Privacy policy.</h1>
+    <article className="flex flex-col gap-14 py-16 sm:py-24">
+      <RevealText
+        as="h1"
+        trigger="load"
+        text="Privacy policy."
+        accent={["policy."]}
+        className="display text-[clamp(3rem,8vw,6rem)]"
+      />
       
       <div className="prose dark:prose-invert">
         <ReactMarkdown>{privacyContent}</ReactMarkdown>

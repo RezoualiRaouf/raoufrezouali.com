@@ -1,5 +1,6 @@
 "use client";
 
+import { sfx } from "@/lib/sound";
 import { useRef } from "react";
 import * as THREE from "three";
 import { COLORS, dotTexture, useThreeScene } from "./useThreeScene";
@@ -7,12 +8,42 @@ import { COLORS, dotTexture, useThreeScene } from "./useThreeScene";
 // Particles on tilted rings spinning at different speeds around a bright core,
 // like a gyroscope that never stops. The whole system leans toward the cursor,
 // and the small amber heart flies its own close loop around the core.
+//
+// It also reacts to the cursor (sounds are clicks and noise only, no music):
+//   - brushing the cursor across a ring gives a soft click, and it flashes
+//   - while hovered, the heart pulses each time it swings past the front of
+//     the core
+//   - a click or tap on it spins the rings up with a click and a whoosh
 const RINGS = [
   { radius: 1.05, count: 900, tilt: [0.9, -0.5, 0], speed: -0.42 },
   { radius: 1.55, count: 1500, tilt: [0.3, 0.1, 0.25], speed: 0.28 },
   { radius: 2.05, count: 2000, tilt: [1.15, 0.35, 0], speed: -0.2 },
   { radius: 2.55, count: 2400, tilt: [-0.55, 0.8, 0.4], speed: 0.13 },
 ] as const;
+const DOT_SIZE = 0.045;
+
+// How far from the centre (in canvas units, -1..1) still counts as over the
+// orbit: just past the outer ring.
+const HOVER_RADIUS = 0.74;
+// Points per ring when checking whether the cursor crossed it.
+const RING_SAMPLES = 48;
+const RING_UNIT = Array.from({ length: RING_SAMPLES }, (_, i) => {
+  const a = (i / RING_SAMPLES) * Math.PI * 2;
+  return [Math.cos(a), Math.sin(a)] as const;
+});
+
+/** Even-odd test: is (x, y) inside the closed outline (x, y pairs)? */
+function inside(path: Float32Array, x: number, y: number) {
+  let hit = false;
+  for (let i = 0, j = RING_SAMPLES - 1; i < RING_SAMPLES; j = i++) {
+    const xi = path[i * 2];
+    const yi = path[i * 2 + 1];
+    const xj = path[j * 2];
+    const yj = path[j * 2 + 1];
+    if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) hit = !hit;
+  }
+  return hit;
+}
 
 // The canvas is drawn this much bigger than its box (and the camera moves back
 // to match), so the rings keep the same size on screen but never reach the
@@ -40,7 +71,7 @@ export default function OrbitParticles() {
 
   useThreeScene(
     ref,
-    ({ scene, pointer }) => {
+    ({ scene, pointer, camera, renderer }) => {
       const sprite = dotTexture();
       const system = new THREE.Group();
       scene.add(system);
@@ -59,21 +90,30 @@ export default function OrbitParticles() {
         const geometry = new THREE.BufferGeometry();
         geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
         geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-        const points = new THREE.Points(
-          geometry,
-          new THREE.PointsMaterial({
-            size: 0.045,
-            map: sprite,
-            vertexColors: true,
-            transparent: true,
-            depthWrite: false,
-          }),
-        );
+        const material = new THREE.PointsMaterial({
+          size: DOT_SIZE,
+          map: sprite,
+          vertexColors: true,
+          transparent: true,
+          depthWrite: false,
+        });
+        const points = new THREE.Points(geometry, material);
         const holder = new THREE.Group();
         holder.rotation.set(def.tilt[0], def.tilt[1], def.tilt[2]);
         holder.add(points);
         system.add(holder);
-        return { points, speed: def.speed };
+        return {
+          points,
+          holder,
+          material,
+          speed: def.speed,
+          radius: def.radius,
+          // The ring's outline on screen, and which side of it the cursor was on.
+          path: new Float32Array(RING_SAMPLES * 2),
+          wasInside: null as boolean | null,
+          lastClick: 0,
+          flash: 0,
+        };
       });
 
       // Bright core.
@@ -110,11 +150,86 @@ export default function OrbitParticles() {
 
       const spot = new THREE.Vector3();
       const plane = new THREE.Euler();
+      const probe = new THREE.Vector3();
+
+      // --- Sound and touch ---------------------------------------------------
+      // Where the mouse is, in page pixels; turned into canvas units each frame
+      // so it stays right while the page scrolls under a still mouse.
+      const hand = { x: -1e4, y: -1e4, mouse: false, inWindow: false };
+      let last = { x: 0, y: 0 };
+      let hovering = false;
+      let boost = 0; // spin-up after a click, eases back to 0
+      let heartZ = 0;
+      let heartRising = false;
+      let heartFlash = 0;
+      let lastPulse = 0;
+      let down: { x: number; y: number; time: number } | null = null;
+
+      const toCanvas = (clientX: number, clientY: number) => {
+        const rect = renderer.domElement.getBoundingClientRect();
+        return {
+          x: ((clientX - rect.left) / rect.width) * 2 - 1,
+          y: -((clientY - rect.top) / rect.height) * 2 + 1,
+        };
+      };
+      const onMove = (e: PointerEvent) => {
+        hand.x = e.clientX;
+        hand.y = e.clientY;
+        hand.mouse = e.pointerType === "mouse";
+        hand.inWindow = true;
+      };
+      const onOut = (e: PointerEvent) => {
+        if (!e.relatedTarget) hand.inWindow = false;
+      };
+      // A click or tap on the orbit (not on a link or a field near it) spins it
+      // up. Taps are read from pointer events: iPhones send no click event for
+      // a plain element. A press that moves (a scroll) is not a tap.
+      const onDown = (e: PointerEvent) => {
+        down = { x: e.clientX, y: e.clientY, time: performance.now() };
+      };
+      const onUp = (e: PointerEvent) => {
+        const start = down;
+        down = null;
+        if (!start || performance.now() - start.time > 500) return;
+        if (Math.hypot(e.clientX - start.x, e.clientY - start.y) > 10) return;
+        if ((e.target as Element | null)?.closest?.("a, button, input, textarea, select, label")) return;
+        const at = toCanvas(e.clientX, e.clientY);
+        if (Math.hypot(at.x, at.y) > HOVER_RADIUS) return;
+        boost = 1;
+        sfx.spin();
+      };
+      window.addEventListener("pointermove", onMove, { passive: true });
+      document.addEventListener("pointerout", onOut, { passive: true });
+      window.addEventListener("pointerdown", onDown, { passive: true });
+      window.addEventListener("pointerup", onUp, { passive: true });
+
+      /** Project each ring onto the canvas and click the ones the cursor crossed. */
+      const brushRings = (x: number, y: number, speed: number, now: number) => {
+        camera.updateMatrixWorld();
+        for (const ring of rings) {
+          ring.holder.updateWorldMatrix(true, false);
+          for (let i = 0; i < RING_SAMPLES; i++) {
+            const [c, s] = RING_UNIT[i];
+            probe.set(c * ring.radius, 0, s * ring.radius).applyMatrix4(ring.holder.matrixWorld).project(camera);
+            ring.path[i * 2] = probe.x;
+            ring.path[i * 2 + 1] = probe.y;
+          }
+          const isInside = inside(ring.path, x, y);
+          if (ring.wasInside !== null && isInside !== ring.wasInside && now - ring.lastClick > 0.12) {
+            sfx.brush(THREE.MathUtils.clamp(0.45 + speed * 6, 0.45, 1));
+            ring.flash = 1;
+            ring.lastClick = now;
+          }
+          ring.wasInside = isInside;
+        }
+      };
 
       return {
         tick: (dt, t) => {
-          rings.forEach((ring) => (ring.points.rotation.y += ring.speed * dt));
-          system.rotation.y += dt * 0.05;
+          const now = performance.now() / 1000;
+          const spin = 1 + boost * 6;
+          rings.forEach((ring) => (ring.points.rotation.y += ring.speed * dt * spin));
+          system.rotation.y += dt * 0.05 * spin;
           system.rotation.x += (-pointer.y * 0.45 - system.rotation.x) * 0.05;
           system.rotation.z += (pointer.x * 0.35 - system.rotation.z) * 0.05;
 
@@ -125,11 +240,51 @@ export default function OrbitParticles() {
           }
           trailGeometry.attributes.position.needsUpdate = true;
 
+          // Is the mouse over the orbit, and did it move this frame?
+          const at = toCanvas(hand.x, hand.y);
+          const wasHovering = hovering;
+          hovering = hand.mouse && hand.inWindow && Math.hypot(at.x, at.y) < HOVER_RADIUS;
+          const speed = Math.hypot(at.x - last.x, at.y - last.y);
+          last = at;
+          if (hovering) {
+            if (speed > 0.002) brushRings(at.x, at.y, speed, now);
+          } else if (wasHovering) {
+            rings.forEach((ring) => (ring.wasInside = null));
+          }
+
+          // Heart pulse (no sound): each time it swings past the front of the
+          // core (its nearest point to the camera). One loop takes about 5
+          // seconds; the gap stops the lean wobble from adding extra pulses.
+          heart.getWorldPosition(probe);
+          const rising = probe.z > heartZ;
+          if (hovering && heartRising && !rising && now - lastPulse > 2) {
+            heartFlash = 1;
+            lastPulse = now;
+          }
+          heartRising = rising;
+          heartZ = probe.z;
+
+          // Flashes and the spin-up ease away. With reduced motion (dt is 0)
+          // there are no flashes and no spin; the sounds still play.
+          const fade = dt ? Math.exp(-dt * 4) : 0;
+          rings.forEach((ring) => {
+            ring.flash *= fade;
+            ring.material.size = DOT_SIZE * (1 + ring.flash * 0.7);
+          });
+          heartFlash *= fade;
+          boost = dt ? boost * Math.exp(-dt * 1.3) : 0;
+
           const pulse = 1 + Math.sin(t * 2.4) * 0.06;
-          core.scale.setScalar(pulse);
-          heart.scale.setScalar(2 - pulse);
+          core.scale.setScalar(pulse * (1 + boost * 0.25));
+          heart.scale.setScalar((2 - pulse) * (1 + heartFlash * 0.5));
         },
-        dispose: () => sprite.dispose(),
+        dispose: () => {
+          window.removeEventListener("pointermove", onMove);
+          document.removeEventListener("pointerout", onOut);
+          window.removeEventListener("pointerdown", onDown);
+          window.removeEventListener("pointerup", onUp);
+          sprite.dispose();
+        },
       };
     },
     { cameraZ: 7.2 * BLEED },

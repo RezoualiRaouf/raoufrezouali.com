@@ -19,12 +19,6 @@
       "showInNav": true
     },
     {
-      "path": "/contact",
-      "name": "contact",
-      "description": "Contact form",
-      "showInNav": true
-    },
-    {
       "path": "/privacy",
       "name": "privacy",
       "description": "Privacy policy",

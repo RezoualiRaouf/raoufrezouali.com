@@ -13,7 +13,7 @@ export default function LabIndex() {
   return (
     <article className="flex flex-col gap-10 py-16 sm:py-24">
       <div>
-        <p className="eyebrow">Pick one to replace the cube</p>
+        <p className="eyebrow">Design lab</p>
         <h1 className="display mt-4 text-[clamp(3rem,8vw,6rem)]">
           Hero <span className="accent-word">options.</span>
         </h1>

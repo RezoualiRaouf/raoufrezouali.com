@@ -1,14 +1,14 @@
 {
   "name": "Raouf Rezouali",
-  "short_name": "raoufrezouali.com",
+  "short_name": "Raouf",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
   "description": "Junior Systems & Network Administrator at Hope Technology. Linux, networking, and server administration.",
   "icons": [
-    { "src": "/web-app-manifest-192x192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/web-app-manifest-512x512.png", "sizes": "512x512", "type": "image/png" },
-    { "src": "/favicon-96x96.png", "sizes": "96x96", "type": "image/png" }
+    { "src": "/web-app-manifest-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/web-app-manifest-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/web-app-manifest-maskable-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }

@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { ArrowUpRight, Menu, X } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -9,8 +10,9 @@ import SoundToggle from "./SoundToggle";
 
 export type NavLink = { name: string; href: string; title?: string };
 
-// Floating dark capsule over the page. Links in the middle (the current page
-// gets a white pill), sound and a "Let's talk" button on the right. On phones
+// Floating dark capsule over the page. The logo on the left, links in the
+// middle (the current page gets a white pill), sound and a "Let's talk"
+// button on the right. On phones
 // the links fold into a menu under the capsule. It tightens a little once
 // the page is scrolled.
 export default function NavBar({ links }: { links: NavLink[] }) {
@@ -35,16 +37,32 @@ export default function NavBar({ links }: { links: NavLink[] }) {
       <div className="pointer-events-auto mx-auto max-w-4xl">
         <div
           className={cn(
-            "flex items-center justify-between gap-3 rounded-full bg-foreground/90 pl-5 pr-2 text-white shadow-lg shadow-black/10 ring-1 ring-white/10 backdrop-blur-md transition-[padding] duration-300",
+            "flex items-center justify-between gap-3 rounded-full bg-foreground/90 px-2 text-white shadow-lg shadow-black/10 ring-1 ring-white/10 backdrop-blur-md transition-[padding] duration-300",
             scrolled ? "py-1.5" : "py-2",
           )}
         >
-          <Link href="/" className="flex shrink-0 items-center gap-2 text-[0.95rem] font-semibold tracking-tight">
-            <span aria-hidden="true" className="size-2 rounded-full bg-highlight" />
-            <span>
-              Raouf<span className="hidden sm:inline"> Rezouali</span>
-            </span>
-          </Link>
+          {/* The logo (the same file as the favicon, from npm run icons),
+              cropped round to match the capsule. Its orbit tilts on hover.
+              The left and right groups share the spare width so the links
+              stay centred. */}
+          <div className="flex flex-1">
+            <Link
+              href="/"
+              aria-label="Raouf Rezouali, home"
+              title="Raouf Rezouali"
+              className="group shrink-0 rounded-full"
+            >
+              <Image
+                src="/favicon.svg"
+                alt=""
+                width={36}
+                height={36}
+                unoptimized
+                priority
+                className="size-9 rounded-full transition-transform duration-500 ease-out group-hover:-rotate-[18deg] motion-reduce:transition-none"
+              />
+            </Link>
+          </div>
 
           <nav aria-label="Main" className="hidden md:block">
             <ul className="flex items-center gap-1 text-sm">
@@ -66,11 +84,10 @@ export default function NavBar({ links }: { links: NavLink[] }) {
             </ul>
           </nav>
 
-          <div className="flex items-center gap-1">
+          <div className="flex flex-1 items-center justify-end gap-1">
             <SoundToggle />
             <Link
-              href="/contact"
-              aria-current={pathname === "/contact" ? "page" : undefined}
+              href="/#contact"
               className="hidden items-center gap-1 rounded-full bg-highlight px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-highlight sm:inline-flex"
             >
               Let&apos;s talk
@@ -99,7 +116,7 @@ export default function NavBar({ links }: { links: NavLink[] }) {
           )}
         >
           <ul className="flex flex-col">
-            {[...links, { name: "Let's talk", href: "/contact" }].map((link) => (
+            {[...links, { name: "Let's talk", href: "/#contact" }].map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}

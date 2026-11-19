@@ -100,10 +100,6 @@ const config: Config = {
           from: { strokeDashoffset: "1" },
           to: { strokeDashoffset: "0" },
         },
-        "plug-in": {
-          from: { opacity: "0", transform: "translateX(-16px)" },
-          to: { opacity: "1", transform: "translateX(0)" },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -113,7 +109,6 @@ const config: Config = {
         marquee: "marquee var(--marquee-duration, 40s) linear infinite",
         draw: "draw 1.1s cubic-bezier(0.6, 0, 0.3, 1) both",
         "spin-slow": "spin 14s linear infinite",
-        "plug-in": "plug-in 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both",
       },
     },
   },

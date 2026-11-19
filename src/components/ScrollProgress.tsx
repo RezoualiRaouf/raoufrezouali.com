@@ -1,12 +1,17 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 
-// Thin line on the right edge that fills as the page scrolls.
+// Thin line on the right edge that fills as the page scrolls. Not on the
+// home page: there the RJ45 cable (PageCable) already follows the scroll down
+// the right margin, and on phones the two lines would sit side by side.
 export default function ScrollProgress() {
   const bar = useRef<HTMLDivElement>(null);
+  const hidden = usePathname() === "/";
 
   useEffect(() => {
+    if (hidden) return;
     let frame = 0;
     const update = () => {
       frame = 0;
@@ -25,7 +30,9 @@ export default function ScrollProgress() {
       window.removeEventListener("resize", onScroll);
       cancelAnimationFrame(frame);
     };
-  }, []);
+  }, [hidden]);
+
+  if (hidden) return null;
 
   return (
     <div aria-hidden="true" className="pointer-events-none fixed right-0 top-0 z-50 h-full w-[2px]">

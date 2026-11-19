@@ -117,7 +117,7 @@ export default async function Post({ params }: PostPageProps) {
         {/* Header */}
         <header className="mb-16">
           <div className="space-y-6">
-            <h1 className="bg-gradient-to-br from-foreground to-foreground/80 bg-clip-text text-4xl font-bold leading-tight tracking-tight text-transparent sm:text-5xl lg:text-6xl">
+            <h1 className="display text-[clamp(2.5rem,6vw,4.5rem)]">
               {title}
             </h1>
 

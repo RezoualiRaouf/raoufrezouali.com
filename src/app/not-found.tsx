@@ -1,33 +1,26 @@
-import { ArrowLeftIcon } from "@radix-ui/react-icons";
-import LinkWithIcon from "../components/LinkWithIcon";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
+// Same heading style as the other pages: big sans words, the last one in the
+// italic accent serif.
 export default function NotFound() {
   return (
-    <article className="mt-8 flex flex-col gap-8 pb-16">
-      <div className="min-h-full px-4 sm:px-6 sm:py-24 md:grid md:place-items-center lg:px-8">
-        <div className="mx-auto max-w-max">
-          <section className="sm:flex">
-            <p className="title text-muted-foreground">404</p>
-            <div className="sm:ml-6">
-              <div className="sm:border-l sm:border-gray-200 sm:pl-6">
-                <h1 className="title sm:text-5xl">
-                  Page not found.
-                </h1>
-                <p className="mt-1 text-base text-muted-foreground">
-                  This page doesn't exist or was moved. Let's get you back.
-                </p>
-              </div>
-              <div className="mt-10 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6">
-                <LinkWithIcon
-                  href="/"
-                  text="back to home"
-                  icon={<ArrowLeftIcon className="size-5" />}
-                  position="left"
-                />
-              </div>
-            </div>
-          </section>
-        </div>
+    <article className="flex flex-col gap-8 py-16 sm:py-24">
+      <p className="eyebrow">Error 404</p>
+      <h1 className="display text-[clamp(3rem,8vw,6rem)]">
+        Page not <span className="accent-word">found.</span>
+      </h1>
+      <p className="max-w-md text-lg text-muted-foreground">
+        This page doesn&apos;t exist or was moved. Let&apos;s get you back.
+      </p>
+      <div>
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1.5 rounded-full bg-highlight px-5 py-2.5 font-medium text-white transition-colors hover:bg-foreground"
+        >
+          <ArrowLeft aria-hidden="true" className="size-4" />
+          Back to home
+        </Link>
       </div>
     </article>
   );

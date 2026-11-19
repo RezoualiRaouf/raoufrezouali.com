@@ -1,6 +1,6 @@
 "use client";
 
-import { useFinePointer, useReducedMotion } from "@/lib/hooks";
+import { useFinePointer, useInView, useReducedMotion } from "@/lib/hooks";
 import type { Project } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
 import { ArrowUpRight } from "lucide-react";
@@ -13,9 +13,10 @@ import { createPortal } from "react-dom";
 const EDGE = 12;
 
 // Big project rows: name, description, stack and links on the left, and a
-// space on the right for the image. With a mouse, hovering a row makes its
-// image float into that space and follow the cursor up and down. On touch
-// screens the image simply sits in that space (under the text on phones).
+// space on the right for the preview (a looping video, or an image). With a
+// mouse, hovering a row makes its preview float into that space, follow the
+// cursor up and down and play from the start. On touch screens the preview
+// simply sits in that space (under the text on phones).
 export default function ProjectList({ projects }: { projects: Project[] }) {
   const fine = useFinePointer();
   const reducedMotion = useReducedMotion();
@@ -103,23 +104,10 @@ export default function ProjectList({ projects }: { projects: Project[] }) {
                 </div>
               </div>
 
-              {/* The space for the image. With a mouse it stays empty and the
-                  floating image moves into it; otherwise the image shows here. */}
-              {project.image && (
-                <div
-                  data-image-slot
-                  className="overflow-hidden rounded-2xl border bg-card shadow-sm [@media(hover:hover)_and_(pointer:fine)]:invisible"
-                >
-                  <Image
-                    src={project.image}
-                    alt={`${project.name} preview`}
-                    width={640}
-                    height={400}
-                    sizes="(max-width: 768px) 100vw, 320px"
-                    className="aspect-[16/10] w-full object-contain p-6"
-                  />
-                </div>
-              )}
+              {/* The space for the preview. With a mouse it stays empty and the
+                  floating preview moves into it; otherwise the preview shows
+                  here (a video plays while it is on screen). */}
+              {(project.image || project.video) && <InlinePreview project={project} enabled={!fine} />}
             </li>
           );
         })}
@@ -134,29 +122,104 @@ export default function ProjectList({ projects }: { projects: Project[] }) {
           <div ref={preview} aria-hidden="true" className="pointer-events-none fixed left-0 top-0 z-30">
             <div
               className={cn(
-                "w-72 overflow-hidden rounded-2xl border bg-card shadow-2xl transition duration-300 ease-out",
-                active !== null && projects[active]?.image
+                "w-80 overflow-hidden rounded-2xl border bg-card shadow-2xl transition duration-300 ease-out",
+                active !== null && (projects[active]?.image || projects[active]?.video)
                   ? "rotate-0 scale-100 opacity-100"
                   : "-rotate-3 scale-75 opacity-0",
               )}
             >
-              {projects.map((project, i) =>
-                project.image ? (
-                  <Image
-                    key={project.name}
-                    src={project.image}
-                    alt=""
-                    width={576}
-                    height={360}
-                    sizes="288px"
-                    className={cn("aspect-[16/10] w-full object-contain p-6", i === active ? "block" : "hidden")}
-                  />
-                ) : null,
-              )}
+              {projects.map((project, i) => (
+                <div key={project.name} className={i === active ? "block" : "hidden"}>
+                  <ProjectMedia project={project} playing={i === active} alt="" sizes="320px" />
+                </div>
+              ))}
             </div>
           </div>,
           document.body,
         )}
     </>
+  );
+}
+
+/** The in-row preview (touch screens): plays its video only while on screen. */
+function InlinePreview({ project, enabled }: { project: Project; enabled: boolean }) {
+  const slot = useRef<HTMLDivElement>(null);
+  const inView = useInView(slot, "0px");
+  return (
+    <div
+      ref={slot}
+      data-image-slot
+      className="overflow-hidden rounded-2xl border bg-card shadow-sm [@media(hover:hover)_and_(pointer:fine)]:invisible"
+    >
+      <ProjectMedia
+        project={project}
+        playing={enabled && inView}
+        alt={`${project.name} preview`}
+        sizes="(max-width: 768px) 100vw, 320px"
+      />
+    </div>
+  );
+}
+
+/**
+ * A project's preview: its looping video (muted, restarted each time it
+ * starts playing, paused otherwise), or the still image when the project has
+ * no video or the visitor prefers reduced motion.
+ */
+function ProjectMedia({
+  project,
+  playing,
+  alt,
+  sizes,
+}: {
+  project: Project;
+  playing: boolean;
+  alt: string;
+  sizes: string;
+}) {
+  const reducedMotion = useReducedMotion();
+  const video = useRef<HTMLVideoElement>(null);
+  const motion = Boolean(project.video) && !reducedMotion;
+
+  useEffect(() => {
+    const el = video.current;
+    if (!el) return;
+    if (playing) {
+      el.muted = true;
+      el.currentTime = 0;
+      el.play().catch(() => {}); // if the browser refuses, the poster stays
+    } else {
+      el.pause();
+    }
+  }, [playing, motion]);
+
+  if (motion && project.video) {
+    return (
+      <video
+        ref={video}
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster={project.image}
+        aria-label={alt || undefined}
+        aria-hidden={alt ? undefined : true}
+        className="aspect-[16/10] w-full object-cover"
+      >
+        {project.video.webm && <source src={project.video.webm} type="video/webm" />}
+        <source src={project.video.mp4} type="video/mp4" />
+      </video>
+    );
+  }
+  if (!project.image) return null;
+  return (
+    <Image
+      src={project.image}
+      alt={alt}
+      width={640}
+      height={400}
+      sizes={sizes}
+      className={cn("aspect-[16/10] w-full", project.video ? "object-cover" : "object-contain p-6")}
+    />
   );
 }

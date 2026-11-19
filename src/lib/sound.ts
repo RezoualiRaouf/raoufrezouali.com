@@ -78,6 +78,26 @@ function tone(freq: number, duration: number, gain: number, type: OscillatorType
   osc.stop(start + duration + 0.02);
 }
 
+/** Noise swept through a band-pass filter: a whoosh that rises or falls. */
+function sweep(from: number, to: number, duration: number, gain: number, delay = 0) {
+  const ac = ready();
+  if (!ac || !master || !noise) return;
+  const start = ac.currentTime + delay;
+  const src = ac.createBufferSource();
+  src.buffer = noise;
+  const filter = ac.createBiquadFilter();
+  filter.type = "bandpass";
+  filter.Q.value = 1.4;
+  filter.frequency.setValueAtTime(from, start);
+  filter.frequency.exponentialRampToValueAtTime(to, start + duration);
+  const env = ac.createGain();
+  env.gain.setValueAtTime(0.0001, start);
+  env.gain.exponentialRampToValueAtTime(gain, start + duration * 0.6);
+  env.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+  src.connect(filter).connect(env).connect(master);
+  src.start(start, 0, duration + 0.05);
+}
+
 export const sfx = {
   /** Feather-light tick for hovering links and buttons. */
   tick() {
@@ -103,14 +123,37 @@ export const sfx = {
     burst(2400, 3, 0.03, 0.5, 0.045);
     tone(90, 0.06, 0.25, "sine", 0.045);
   },
-  /** Little start-up chime for the Ctrl + Alt + Del easter egg. */
-  boot() {
-    [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(f, 0.35, 0.22, "triangle", i * 0.09));
-    tone(2093, 0.6, 0.08, "sine", 0.36);
-  },
   /** Two soft notes when sound is switched on. */
   on() {
     tone(660, 0.12, 0.25, "sine");
     tone(990, 0.16, 0.25, "sine", 0.08);
+  },
+
+  // Hero orbit and RJ45 cable. The orbit sounds are clicks and noise only,
+  // no musical notes.
+
+  /** Soft click as the cursor brushes across an orbit ring. */
+  brush(strength = 1) {
+    burst(4800, 3.5, 0.02, 0.35 * strength);
+    burst(2200, 3, 0.015, 0.15 * strength, 0.006);
+  },
+  /** Spin-up: a latch click, then a rising whoosh. */
+  spin() {
+    burst(3200, 2.5, 0.03, 0.5);
+    sweep(300, 4200, 0.7, 0.5, 0.02);
+  },
+  /** RJ45 plug snapping into its port, then a two-note "link up" beep. */
+  plugIn() {
+    burst(5600, 7, 0.01, 0.9);
+    burst(2300, 5, 0.025, 0.55, 0.008);
+    tone(160, 0.05, 0.3, "sine", 0, 90);
+    tone(1046.5, 0.09, 0.05, "square", 0.2);
+    tone(1568, 0.16, 0.05, "square", 0.3);
+  },
+  /** Latch pressed and the plug pulled out, with a falling "link down" note. */
+  unplug() {
+    burst(3800, 6, 0.012, 0.6);
+    burst(1600, 4, 0.03, 0.35, 0.05);
+    tone(784, 0.18, 0.04, "square", 0.12, 523);
   },
 };

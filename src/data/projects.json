@@ -3,7 +3,8 @@
     {
       "name": "Multithreaded HTTP/1.1 Server",
       "description": "A lightweight HTTP server written in pure C with POSIX threads for concurrent connection handling. Features Apache Common Log Format logging, path traversal protection, keep-alive connections.",
-      "image": "/img/server.png",
+      "image": "/video/http-server-terminal.jpg",
+      "video": { "webm": "/video/http-server-terminal.webm", "mp4": "/video/http-server-terminal.mp4" },
       "tags": [
         "C",
         "POSIX Threads",
@@ -22,7 +23,8 @@
     {
       "name": "Al-Moanes",
       "description": "An Islamic Quran recitation web app with Arabic/English RTL/LTR support, custom audio player, and newsletter via Google Apps Script.",
-      "image": "/img/Al-Moanes.png",
+      "image": "/video/al-moanes-player.jpg",
+      "video": { "webm": "/video/al-moanes-player.webm", "mp4": "/video/al-moanes-player.mp4" },
       "tags": [
         "HTML5",
         "SCSS",

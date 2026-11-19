@@ -1,22 +1,6 @@
 import dynamicIconImports from "lucide-react/dynamicIconImports";
 import { z } from "zod";
 
-export const ContactFormSchema = z.object({
-  name: z
-    .string()
-    .min(1, { message: "Name is required." })
-    .min(2, { message: "Must be at least 2 characters." })
-    .max(100, { message: "Must be at most 100 characters." }),
-  email: z
-    .string()
-    .min(1, { message: "Email is required." })
-    .email("Invalid email."),
-  message: z
-    .string()
-    .min(1, { message: "Message is required." })
-    .max(5000, { message: "Must be at most 5000 characters." }),
-});
-
 const iconLink = z.object({
   name: z.string(),
   href: z.string().url(),
@@ -29,6 +13,8 @@ const project = z.object({
   description: z.string(),
   href: z.string().url().optional(),
   image: z.string().optional(),
+  // A short silent looping preview; `image` doubles as its poster frame.
+  video: z.object({ mp4: z.string(), webm: z.string().optional() }).optional(),
   tags: z.array(z.string()),
   links: z.array(iconLink),
 });

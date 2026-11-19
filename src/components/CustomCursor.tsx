@@ -7,13 +7,16 @@ type Mode = "default" | "link" | "label" | "text" | "hidden";
 
 const LINKS = "a, button, [role='button'], [role='tab'], label, summary, select";
 const TEXT_FIELDS = "input:not([type='checkbox']):not([type='radio']):not([type='submit']):not([type='button']), textarea, [contenteditable='true']";
+const BRAND_SURFACE = ".bg-brand";
 
 /**
  * The site's cursor, for mouse users only (touch screens keep their own).
  * An amber dot sits exactly on the pointer and a ring follows a little
  * behind. The ring is white with mix-blend-mode "difference", so it shows
- * dark on the white pages and orange on the sky-blue hero. It changes with
- * what is under it:
+ * dark on the white pages. Over the sky-blue sections (anything inside a
+ * .bg-brand element) the blend is switched off and it stays plain white,
+ * since "difference" would turn it orange there. It changes with what is
+ * under it:
  *   - links and buttons: the ring grows into a disc that inverts what it covers
  *   - anything with data-cursor="Label": an amber bubble with that word
  *   - text fields: the normal text cursor comes back
@@ -24,6 +27,7 @@ export default function CustomCursor() {
   const [mode, setMode] = useState<Mode>("hidden");
   const [label, setLabel] = useState("");
   const [pressed, setPressed] = useState(false);
+  const [onBrand, setOnBrand] = useState(false);
   const dot = useRef<HTMLDivElement>(null);
   const ring = useRef<HTMLDivElement>(null);
   const bubble = useRef<HTMLDivElement>(null);
@@ -47,6 +51,7 @@ export default function CustomCursor() {
     let frame = 0;
 
     const modeFor = (el: Element): Mode => {
+      setOnBrand(Boolean(el.closest(BRAND_SURFACE)));
       if (el.closest(TEXT_FIELDS)) return "text";
       const labelled = el.closest<HTMLElement>("[data-cursor]");
       if (labelled?.dataset.cursor) {
@@ -109,10 +114,17 @@ export default function CustomCursor() {
   if (!enabled) return null;
 
   const hidden = mode === "hidden" || mode === "text";
+  // Each layer is its own fixed element on purpose. A shared fixed wrapper
+  // with a z-index is an isolated stacking context: the ring's "difference"
+  // blend then mixes with the empty wrapper instead of the page, so the ring
+  // stays plain white (invisible on white pages, and covering button text).
+  const layer = "pointer-events-none fixed left-0 top-0 z-[100]";
   return (
-    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[100]">
-      {/* Ring (and the inverting disc over links). */}
-      <div ref={ring} className="absolute left-0 top-0 mix-blend-difference">
+    <div aria-hidden="true">
+      {/* Ring (and the inverting disc over links). On the blue sections the
+          plain ring skips the blend so it stays white; the disc over links
+          keeps it, so the link text it covers stays readable. */}
+      <div ref={ring} className={cn(layer, !(onBrand && mode !== "link") && "mix-blend-difference")}>
         <div
           className={cn(
             "-translate-x-1/2 -translate-y-1/2 rounded-full border-[1.5px] border-white transition-[width,height,background-color,opacity,transform] duration-300 ease-out",
@@ -123,7 +135,7 @@ export default function CustomCursor() {
         />
       </div>
       {/* Label bubble; it moves with the ring (not blended, so it stays amber). */}
-      <div ref={bubble} className="absolute left-0 top-0">
+      <div ref={bubble} className={layer}>
         <div
           className={cn(
             "grid size-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-highlight text-xs font-semibold uppercase tracking-[0.12em] text-white shadow-lg transition-[transform,opacity] duration-300 ease-out",
@@ -135,7 +147,7 @@ export default function CustomCursor() {
         </div>
       </div>
       {/* Dot, exactly on the pointer. */}
-      <div ref={dot} className="absolute left-0 top-0">
+      <div ref={dot} className={layer}>
         <div
           className={cn(
             "size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-highlight transition-[opacity,transform] duration-200",

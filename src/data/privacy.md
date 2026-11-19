@@ -2,7 +2,7 @@ _Last Updated: November 2026_
 
 ## TL;DR
 
-This site uses Google Analytics to count visits. If you use the contact form, your message is only used to reply to you. Nothing is sold.
+This site uses Google Analytics to count visits. If you email me, your message is only used to reply to you. Nothing is sold.
 
 ## Hey 👋
 
@@ -22,7 +22,7 @@ If you scan the QR code on my business card, the redirect logs the time, your IP
 
 ### Contacting me
 
-If you use the contact form or email me directly, I'll only use your email to reply and continue the conversation. Nothing is shared or sold.
+If you email me, I'll only use your email to reply and continue the conversation. Nothing is shared or sold.
 
 ## How I use the info
 
@@ -36,4 +36,4 @@ That's it. If you accidentally share something you'd rather not have stored, jus
 
 ## Questions?
 
-Email me at [contact@raoufrezouali.com](mailto:contact@raoufrezouali.com) or use the [contact form](/contact).
+Email me at [contact@raoufrezouali.com](mailto:contact@raoufrezouali.com).

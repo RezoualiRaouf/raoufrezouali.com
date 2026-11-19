@@ -7,7 +7,8 @@ import type { Metadata } from "next";
 const WHATSAPP_NUMBER = "213556953564";
 
 export const metadata: Metadata = {
-  title: "Raouf Rezouali — Say Hi",
+  // The layout's title template adds " | Raouf Rezouali".
+  title: "Say Hi",
   // Prevent search engines from indexing this QR-only page
   robots: { index: false, follow: false },
 };

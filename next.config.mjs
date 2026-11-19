@@ -13,6 +13,12 @@ const nextConfig = {
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
+  // The contact form page is gone; old links land on the home page's
+  // contact block (email) instead of a 404. Not permanent, so browsers
+  // don't cache it if a /contact page ever comes back.
+  async redirects() {
+    return [{ source: "/contact", destination: "/#contact", permanent: false }];
+  },
   images: {
     qualities: [70, 75],
     formats: ["image/avif", "image/webp"],
