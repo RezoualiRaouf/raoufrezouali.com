@@ -1,6 +1,6 @@
 "use client";
 
-import { RefObject, useEffect, useState } from "react";
+import { RefObject, useEffect, useState, useSyncExternalStore } from "react";
 
 export function useReducedMotion(): boolean {
   const [reduced, setReduced] = useState(false);
@@ -30,18 +30,24 @@ export function useInView(ref: RefObject<Element | null>, margin = "120px"): boo
   return inView;
 }
 
-/** True when the browser can create a WebGL context. Null until checked. */
-export function useWebGL(): boolean | null {
-  const [supported, setSupported] = useState<boolean | null>(null);
-  useEffect(() => {
+// Checked once per page load: support does not change while the page is open.
+let webglSupport: boolean | undefined;
+function detectWebGL(): boolean {
+  if (webglSupport === undefined) {
     try {
       const canvas = document.createElement("canvas");
-      setSupported(Boolean(canvas.getContext("webgl2") || canvas.getContext("webgl")));
+      webglSupport = Boolean(canvas.getContext("webgl2") || canvas.getContext("webgl"));
     } catch {
-      setSupported(false);
+      webglSupport = false;
     }
-  }, []);
-  return supported;
+  }
+  return webglSupport;
+}
+const noSubscribe = () => () => {};
+
+/** True when the browser can create a WebGL context. Null until checked. */
+export function useWebGL(): boolean | null {
+  return useSyncExternalStore<boolean | null>(noSubscribe, detectWebGL, () => null);
 }
 
 /** True on devices with a precise pointer (mouse, trackpad). */

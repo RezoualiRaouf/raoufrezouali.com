@@ -20,7 +20,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 }
 
 function ToastProvider() {
-  const { resolvedTheme } = useTheme();
+  // forcedTheme wins: the site is always light, whatever the OS prefers.
+  const { forcedTheme, resolvedTheme: systemTheme } = useTheme();
+  const resolvedTheme = forcedTheme ?? systemTheme;
 
   return (
     <Toaster

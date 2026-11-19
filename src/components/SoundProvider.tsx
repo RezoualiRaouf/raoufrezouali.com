@@ -1,7 +1,7 @@
 "use client";
 
 import { setSoundEnabled, sfx, unlockSound } from "@/lib/sound";
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useSyncExternalStore } from "react";
 
 const STORAGE_KEY = "sound";
 
@@ -12,22 +12,52 @@ const SoundContext = createContext<{ enabled: boolean; toggle: () => void }>({
 
 export const useSound = () => useContext(SoundContext);
 
+// The visitor's choice, saved in localStorage. It is also kept in memory so
+// the toggle still works for the visit when storage is blocked.
+let soundOn: boolean | undefined;
+const listeners = new Set<() => void>();
+
+function readSoundOn(): boolean {
+  if (soundOn === undefined) {
+    try {
+      soundOn = localStorage.getItem(STORAGE_KEY) !== "off";
+    } catch {
+      soundOn = true; // Storage can be blocked; sound simply stays on.
+    }
+  }
+  return soundOn;
+}
+
+function saveSoundOn(next: boolean) {
+  soundOn = next;
+  try {
+    localStorage.setItem(STORAGE_KEY, next ? "on" : "off");
+  } catch {
+    // Ignore storage errors.
+  }
+  listeners.forEach((listener) => listener());
+}
+
+function subscribe(listener: () => void) {
+  listeners.add(listener);
+  return () => {
+    listeners.delete(listener);
+  };
+}
+
 // Sound is on by default (visitors can mute it; the choice is remembered).
 // Plays hover and click sounds for every link and button:
 //   data-sound="none"   stays silent
 //   data-sound="toggle" plays the light-switch click instead
 export default function SoundProvider({ children }: { children: React.ReactNode }) {
-  const [enabled, setEnabled] = useState(true);
+  // On the server and during hydration sound counts as on, as before.
+  const enabled = useSyncExternalStore(subscribe, readSoundOn, () => true);
 
   useEffect(() => {
-    try {
-      if (localStorage.getItem(STORAGE_KEY) === "off") {
-        setEnabled(false);
-        setSoundEnabled(false);
-      }
-    } catch {
-      // Storage can be blocked; sound simply stays on.
-    }
+    setSoundEnabled(enabled);
+  }, [enabled]);
+
+  useEffect(() => {
     // Browsers only start audio after a gesture, so unlock it on the first one.
     const unlock = () => {
       unlockSound();
@@ -43,17 +73,10 @@ export default function SoundProvider({ children }: { children: React.ReactNode 
   }, []);
 
   const toggle = useCallback(() => {
-    setEnabled((current) => {
-      const next = !current;
-      setSoundEnabled(next);
-      if (next) sfx.on();
-      try {
-        localStorage.setItem(STORAGE_KEY, next ? "on" : "off");
-      } catch {
-        // Ignore storage errors.
-      }
-      return next;
-    });
+    const next = !readSoundOn();
+    setSoundEnabled(next);
+    if (next) sfx.on();
+    saveSoundOn(next);
   }, []);
 
   useEffect(() => {

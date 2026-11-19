@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { createElement, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Props = {
   text: string;
@@ -28,7 +28,8 @@ export default function RevealText({
   delay = 0,
   stagger = 70,
 }: Props) {
-  const ref = useRef<HTMLElement>(null);
+  // Typed to fit every allowed tag (h1, h2, p, span).
+  const ref = useRef<HTMLHeadingElement & HTMLParagraphElement & HTMLSpanElement>(null);
   // "static" = plain text (server render, reduced motion, or already on screen
   // for view triggers); "armed" = hidden, waiting; "play" = animating in.
   const [state, setState] = useState<"static" | "armed" | "play">(
@@ -55,30 +56,31 @@ export default function RevealText({
   }, [trigger]);
 
   const words = text.split(" ");
+  const Tag = as;
 
   // Words stay real text (no aria-hidden) so screen readers and search
   // engines read the sentence normally.
-  return createElement(
-    as,
-    { ref, className },
-    words.map((word, i) => (
-      <span
-        key={`${word}-${i}`}
-        className="-mb-[0.12em] inline-block overflow-hidden pb-[0.12em] align-bottom"
-      >
+  return (
+    <Tag ref={ref} className={className}>
+      {words.map((word, i) => (
         <span
-          className={cn(
-            "inline-block",
-            accent.includes(word) && "accent-word",
-            state === "armed" && "translate-y-[105%]",
-            state === "play" && "motion-safe:animate-rise",
-          )}
-          style={state === "play" ? { animationDelay: `${delay + i * stagger}ms` } : undefined}
+          key={`${word}-${i}`}
+          className="-mb-[0.12em] inline-block overflow-hidden pb-[0.12em] align-bottom"
         >
-          {word}
+          <span
+            className={cn(
+              "inline-block",
+              accent.includes(word) && "accent-word",
+              state === "armed" && "translate-y-[105%]",
+              state === "play" && "motion-safe:animate-rise",
+            )}
+            style={state === "play" ? { animationDelay: `${delay + i * stagger}ms` } : undefined}
+          >
+            {word}
+          </span>
+          {i < words.length - 1 && " "}
         </span>
-        {i < words.length - 1 && " "}
-      </span>
-    )),
+      ))}
+    </Tag>
   );
 }

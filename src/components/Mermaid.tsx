@@ -11,7 +11,9 @@ type MermaidProps = {
 };
 
 export default function Mermaid({ chart, className }: MermaidProps) {
-  const { resolvedTheme } = useTheme();
+  // forcedTheme wins: the site is always light, whatever the OS prefers.
+  const { forcedTheme, resolvedTheme: systemTheme } = useTheme();
+  const resolvedTheme = forcedTheme ?? systemTheme;
   const id = useId().replace(/:/g, "");
   const [svg, setSvg] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
@@ -21,10 +23,14 @@ export default function Mermaid({ chart, className }: MermaidProps) {
 
     let cancelled = false;
 
+    // Mermaid 12 switched its defaults to the ELK layout and the "neo" look;
+    // dagre + classic keeps diagrams looking as they did on Mermaid 10.
     mermaid.initialize({
       startOnLoad: false,
       securityLevel: "loose",
       theme: resolvedTheme === "dark" ? "dark" : "default",
+      layout: "dagre",
+      look: "classic",
     });
 
     mermaid

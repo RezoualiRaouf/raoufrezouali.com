@@ -56,6 +56,7 @@ export default function BlogImage({
       <DialogPortal>
         <DialogOverlay className="bg-background/80 backdrop-blur-sm" />
         <DialogPrimitive.Content
+          aria-describedby={undefined}
           className={cn(
             "fixed inset-0 z-50 flex items-center justify-center p-4 outline-none sm:p-6",
             "data-[state=open]:animate-in data-[state=closed]:animate-out",
@@ -63,6 +64,8 @@ export default function BlogImage({
             "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
           )}
         >
+          {/* Named for screen readers; the image itself is the content. */}
+          <DialogPrimitive.Title className="sr-only">{alt || "Image"}</DialogPrimitive.Title>
           <div className="fixed right-4 top-4 z-50 flex items-center gap-2 sm:right-6 sm:top-6">
             <DialogClose asChild>
               <Button
@@ -86,7 +89,7 @@ export default function BlogImage({
                 height={height}
                 className="h-auto max-h-[85vh] w-auto max-w-[min(90vw,1160px)] select-none rounded-lg object-contain"
                 skeletonClassName="rounded-lg bg-muted/30"
-                quality={85}
+                quality={75}
                 priority={false}
                 sizes="100vw"
               />

@@ -28,7 +28,11 @@ export default function NavBar({ links }: { links: NavLink[] }) {
   }, []);
 
   // Close the phone menu after navigating.
-  useEffect(() => setOpen(false), [pathname]);
+  const [menuPath, setMenuPath] = useState(pathname);
+  if (menuPath !== pathname) {
+    setMenuPath(pathname);
+    setOpen(false);
+  }
 
   const isCurrent = (href: string) => !href.includes("#") && pathname === href;
 

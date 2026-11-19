@@ -66,7 +66,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    // data-scroll-behavior lets Next turn smooth scrolling off during page
+    // changes, so new pages start at the top instead of gliding up.
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-TJV80YGZV0"

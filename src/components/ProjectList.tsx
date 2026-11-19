@@ -25,7 +25,9 @@ export default function ProjectList({ projects }: { projects: Project[] }) {
   const target = useRef({ x: 0, y: 0 });
   const [active, setActive] = useState<number | null>(null);
   const showing = useRef(false);
-  showing.current = active !== null;
+  useEffect(() => {
+    showing.current = active !== null;
+  }, [active]);
 
   // Ease the floating image toward its target every frame. While it is
   // hidden it jumps straight to the target, so it fades in where you are
