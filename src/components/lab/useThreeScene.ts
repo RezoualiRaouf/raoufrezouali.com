@@ -23,7 +23,7 @@ export type SceneHandle = {
  * pointer tracking, pausing off screen, reduced motion and clean-up.
  */
 export function useThreeScene(
-  ref: RefObject<HTMLDivElement>,
+  ref: RefObject<HTMLDivElement | null>,
   build: (ctx: SceneContext) => SceneHandle,
   options: { cameraZ?: number; fov?: number } = {},
 ) {

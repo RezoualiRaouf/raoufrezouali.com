@@ -3,7 +3,7 @@ import { z } from "zod";
 
 const iconLink = z.object({
   name: z.string(),
-  href: z.string().url(),
+  href: z.url(),
   icon: z.custom<keyof typeof dynamicIconImports>(),
 });
 export type IconLink = z.infer<typeof iconLink>;
@@ -11,7 +11,7 @@ export type IconLink = z.infer<typeof iconLink>;
 const project = z.object({
   name: z.string(),
   description: z.string(),
-  href: z.string().url().optional(),
+  href: z.url().optional(),
   image: z.string().optional(),
   // A short silent looping preview; `image` doubles as its poster frame.
   video: z.object({ mp4: z.string(), webm: z.string().optional() }).optional(),

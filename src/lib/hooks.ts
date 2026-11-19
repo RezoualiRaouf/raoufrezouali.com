@@ -15,7 +15,7 @@ export function useReducedMotion(): boolean {
 }
 
 /** Whether the element is on screen (with a small margin). */
-export function useInView(ref: RefObject<Element>, margin = "120px"): boolean {
+export function useInView(ref: RefObject<Element | null>, margin = "120px"): boolean {
   const [inView, setInView] = useState(false);
   useEffect(() => {
     const element = ref.current;
